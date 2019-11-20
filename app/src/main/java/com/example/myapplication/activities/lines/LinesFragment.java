@@ -1,4 +1,4 @@
-package com.example.myapplication.display.lines;
+package com.example.myapplication.activities.lines;
 
 import androidx.fragment.app.Fragment;
 

@@ -1,5 +1,6 @@
-package com.example.myapplication.data.api.model;
+package com.example.myapplication.model.api.model;
 
+import com.example.myapplication.model.Hero;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

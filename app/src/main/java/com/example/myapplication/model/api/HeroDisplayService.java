@@ -1,7 +1,7 @@
-package com.example.myapplication.data.api;
+package com.example.myapplication.model.api;
 
-import com.example.myapplication.data.api.model.Hero;
-import com.example.myapplication.data.api.model.Heroes;
+import com.example.myapplication.model.Hero;
+import com.example.myapplication.model.api.model.Heroes;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

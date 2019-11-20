@@ -1,4 +1,4 @@
-package com.example.myapplication.display.blocks;
+package com.example.myapplication.activities.blocks;
 
 import androidx.fragment.app.Fragment;
 

@@ -1,10 +1,10 @@
-package com.example.myapplication.data.db;
+package com.example.myapplication.model.db;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.myapplication.data.entity.HeroEntity;
+import com.example.myapplication.model.entity.HeroEntity;
 
 import java.util.List;
 
