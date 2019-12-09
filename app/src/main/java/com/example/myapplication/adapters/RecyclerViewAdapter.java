@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.R;
 import com.example.myapplication.model.Hero;
 
@@ -20,10 +21,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private Context mContext;
     private List<Hero> mData;
+    RequestOptions options;
 
     public RecyclerViewAdapter(Context mContext, List<Hero> mData) {
         this.mContext = mContext;
         this.mData = mData;
+
+        // request option for glide
+        options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.loading_shape)
+                .error(R.drawable.loading_shape);
     }
 
     @NonNull
@@ -42,7 +50,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textView_occupation.setText(mData.get(position).getWork());
 
         // use Glide to set ImageView
-        Glide.with(mContext).load(mData.get(position).getImage()).into(holder.imageView_thumbnail);
+        Glide.with(mContext)
+                .load(mData.get(position).getImage())
+                .apply(options)
+                .into(holder.imageView_thumbnail);
 
     }
 

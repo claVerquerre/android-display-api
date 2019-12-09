@@ -1,7 +1,5 @@
 package com.example.myapplication.model;
 
-import com.example.myapplication.model.api.model.ImageLinks;
-
 public class Hero {
 
     private String id;
@@ -10,13 +8,13 @@ public class Hero {
     private String biography;
     private String appearance;
     private String work;
-    private ImageLinks image;
+    private String image;
 
     public Hero() {
 
     }
 
-    public Hero(String id, String name, String powerstats, String biography, String appearance, String work, ImageLinks image) {
+    public Hero(String id, String name, String powerstats, String biography, String appearance, String work, String image) {
         this.id = id;
         this.name = name;
         this.powerstats = powerstats;
@@ -46,7 +44,7 @@ public class Hero {
         return work;
     }
 
-    public ImageLinks getImage() {
+    public String getImage() {
         return image;
     }
 
@@ -78,7 +76,7 @@ public class Hero {
         this.work = work;
     }
 
-    public void setImage(ImageLinks image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

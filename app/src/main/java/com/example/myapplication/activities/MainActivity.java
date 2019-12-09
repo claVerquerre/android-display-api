@@ -40,18 +40,30 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onResponse(JSONArray response) {
+
                 JSONObject jsonObject = null;
 
                 for (int i = 0; i<response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
+
+                        // get all information about a hero from json
                         Hero hero = new Hero();
-                    } catch (JSONException e) {
+                        hero.setName(jsonObject.getString("name"));
+                        hero.setPowerstats(jsonObject.getString("powerstats"));
+                        hero.setBiography(jsonObject.getString("biography"));
+                        hero.setAppearance(jsonObject.getString("appearance"));
+                        hero.setWork(jsonObject.getString("work"));
+                        hero.setImage(jsonObject.getString("image"));
+                    }
+                    catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
             }
+        }, new Response.ErrorListener() {
+
         });
     }
 
