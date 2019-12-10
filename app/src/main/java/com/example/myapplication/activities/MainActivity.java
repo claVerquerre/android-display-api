@@ -3,19 +3,24 @@ package com.example.myapplication.activities;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.MyApplication;
 import com.example.myapplication.R;
+import com.example.myapplication.adapters.RecyclerViewAdapter;
 import com.example.myapplication.model.Hero;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        heroList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         jsonRequest();
     }
@@ -41,7 +47,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onResponse(JSONArray response) {
 
-                JSONObject jsonObject = null;
+                JSONObject jsonObject;
 
                 for (int i = 0; i<response.length(); i++) {
                     try {
@@ -55,16 +61,33 @@ public class MainActivity extends AppCompatActivity{
                         hero.setAppearance(jsonObject.getString("appearance"));
                         hero.setWork(jsonObject.getString("work"));
                         hero.setImage(jsonObject.getString("image"));
+
+                        heroList.add(hero);
                     }
                     catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
+                setupRecyclerView(heroList);
             }
+
         }, new Response.ErrorListener() {
 
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
         });
+
+        requestQueue = Volley.newRequestQueue(MainActivity.this);
+        requestQueue.add(request);
+    }
+
+    private void setupRecyclerView(List<Hero> heroList) {
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, heroList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 
 }

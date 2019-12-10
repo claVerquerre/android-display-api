@@ -1,10 +1,12 @@
 package com.example.myapplication.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.R;
+import com.example.myapplication.activities.HeroActivity;
 import com.example.myapplication.model.Hero;
 
 import java.util.List;
@@ -21,7 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private Context mContext;
     private List<Hero> mData;
-    RequestOptions options;
+    private RequestOptions options;
 
     public RecyclerViewAdapter(Context mContext, List<Hero> mData) {
         this.mContext = mContext;
@@ -41,7 +44,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         LayoutInflater inflater = LayoutInflater.from(mContext);
         view = inflater.inflate(R.layout.hero_row_item, parent, false);
 
-        return new MyViewHolder(view);
+        final MyViewHolder viewHolder = new MyViewHolder(view);
+        viewHolder.view_container.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(mContext, HeroActivity.class);
+                i.putExtra("hero_name", mData.get(viewHolder.getAdapterPosition()).getName());
+                i.putExtra("hero_powerstats", mData.get(viewHolder.getAdapterPosition()).getPowerstats());
+                i.putExtra("hero_biography", mData.get(viewHolder.getAdapterPosition()).getBiography());
+                i.putExtra("hero_appearance", mData.get(viewHolder.getAdapterPosition()).getAppearance());
+                i.putExtra("hero_work", mData.get(viewHolder.getAdapterPosition()).getWork());
+                i.putExtra("hero_image", mData.get(viewHolder.getAdapterPosition()).getImage());
+
+                mContext.startActivity(i);
+            }
+        });
+
+        return viewHolder;
     }
 
     @Override
@@ -68,8 +88,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView textView_occupation;
         ImageView imageView_thumbnail;
 
+        // for the detail of a hero
+        LinearLayout view_container;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            view_container = itemView.findViewById(R.id.container);
 
             textView_name = itemView.findViewById(R.id.hero_name);
             textView_occupation = itemView.findViewById(R.id.hero_occupation);

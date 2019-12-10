@@ -3,4 +3,8 @@
     <string name="picture_of_the_hero">Picture of the hero</string>
     <string name="hero_name">Hero Name</string>
     <string name="hero_occupation">Hero Occupation</string>
+    <string name="hero_powerstats">Hero Powerstats</string>
+    <string name="hero_biography">Hero Biography</string>
+    <string name="hero_appearance">Hero Appearance</string>
+    <string name="hero_work">Hero Work</string>
 </resources>
