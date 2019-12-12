@@ -1,18 +1,33 @@
 package com.example.myapplication.model;
 
-public class Hero {
+import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
+public class Hero implements Serializable {
+
+    @SerializedName("id")
     private String id;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("powerstats")
     private String powerstats;
+
+    @SerializedName("biography")
     private String biography;
+
+    @SerializedName("appearance")
     private String appearance;
+
+    @SerializedName("work")
     private String work;
+
+    @SerializedName("image")
     private String image;
 
-    public Hero() {
-
-    }
+    public Hero() { }
 
     public Hero(String id, String name, String powerstats, String biography, String appearance, String work, String image) {
         this.id = id;

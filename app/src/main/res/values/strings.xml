@@ -7,4 +7,5 @@
     <string name="hero_biography">Hero Biography</string>
     <string name="hero_appearance">Hero Appearance</string>
     <string name="hero_work">Hero Work</string>
+    <string name="error_api">Oops, error when trying to call Superhero API…</string>
 </resources>
