@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,24 +16,21 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.R;
 import com.example.myapplication.activities.HeroActivity;
 import com.example.myapplication.model.Hero;
+import com.example.myapplication.utils.ImageUtils;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<Hero> mData;
-    private RequestOptions options;
 
     public RecyclerViewAdapter(Context mContext, List<Hero> mData) {
         this.mContext = mContext;
         this.mData = mData;
-
-        // request option for glide
-        options = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.drawable.loading_shape)
-                .error(R.drawable.loading_shape);
     }
 
     @NonNull
@@ -44,37 +40,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         LayoutInflater inflater = LayoutInflater.from(mContext);
         view = inflater.inflate(R.layout.hero_row_item, parent, false);
 
-        final MyViewHolder viewHolder = new MyViewHolder(view);
-        viewHolder.view_container.setOnClickListener(new View.OnClickListener() {
+        return new MyViewHolder(view);
+        /* viewHolder.view_container.setOnClickListener(view1 -> {
 
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(mContext, HeroActivity.class);
-                i.putExtra("hero_name", mData.get(viewHolder.getAdapterPosition()).getName());
-                i.putExtra("hero_powerstats", mData.get(viewHolder.getAdapterPosition()).getPowerstats());
-                i.putExtra("hero_biography", mData.get(viewHolder.getAdapterPosition()).getBiography());
-                i.putExtra("hero_appearance", mData.get(viewHolder.getAdapterPosition()).getAppearance());
-                i.putExtra("hero_work", mData.get(viewHolder.getAdapterPosition()).getWork());
-                i.putExtra("hero_image", mData.get(viewHolder.getAdapterPosition()).getImage());
+            Intent i = new Intent(mContext, HeroActivity.class);
+            i.putExtra("hero_name", mData.get(viewHolder.getAdapterPosition()).getName());
+            i.putExtra("hero_powerstats", mData.get(viewHolder.getAdapterPosition()).getPowerstats());
+            i.putExtra("hero_biography", mData.get(viewHolder.getAdapterPosition()).getBiography());
+            i.putExtra("hero_appearance", mData.get(viewHolder.getAdapterPosition()).getAppearance());
+            i.putExtra("hero_work", mData.get(viewHolder.getAdapterPosition()).getWork());
+            i.putExtra("hero_image", mData.get(viewHolder.getAdapterPosition()).getImage());
 
-                mContext.startActivity(i);
-            }
+            mContext.startActivity(i);
         });
 
-        return viewHolder;
+        return viewHolder; */
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.textView_name.setText(mData.get(position).getName());
-        holder.textView_occupation.setText(mData.get(position).getWork());
-
-        // use Glide to set ImageView
-        Glide.with(mContext)
-                .load(mData.get(position).getImage())
-                .apply(options)
-                .into(holder.imageView_thumbnail);
-
+        holder.bind(mData);
     }
 
     @Override
@@ -82,23 +67,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.hero_name)
         TextView textView_name;
+
+        @BindView(R.id.hero_occupation)
         TextView textView_occupation;
+
+        @BindView(R.id.thumbnail)
         ImageView imageView_thumbnail;
 
-        // for the detail of a hero
-        LinearLayout view_container;
-
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
 
-            view_container = itemView.findViewById(R.id.container);
-
-            textView_name = itemView.findViewById(R.id.hero_name);
-            textView_occupation = itemView.findViewById(R.id.hero_occupation);
-            imageView_thumbnail = itemView.findViewById(R.id.thumbnail);
+        void bind(Hero hero) {
+            textView_name.setText(hero.getName());
+            textView_occupation.setText(hero.getWork());
+            ImageUtils.loadImage(imageView_thumbnail, hero.getImage());
         }
     }
 }

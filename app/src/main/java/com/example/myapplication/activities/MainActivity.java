@@ -7,30 +7,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.RecyclerViewAdapter;
 import com.example.myapplication.model.Hero;
-import com.example.myapplication.network.GetHeroDataService;
-import com.example.myapplication.network.RetrofitInstance;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class MainActivity extends AppCompatActivity{
 
     private List<Hero> heroList;
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         heroList = new ArrayList<>();
 
         dataRequest();
@@ -45,25 +46,52 @@ public class MainActivity extends AppCompatActivity{
      */
     private void dataRequest() {
 
-        /*for (int i=1; i<=100; i++){
+        String api_url = "https://akabab.github.io/superhero-api/api/" + "all.json";
+        JsonArrayRequest request = new JsonArrayRequest(api_url, response -> {
+            JSONObject jsonObject;
 
-            GetHeroDataService heroDataService = RetrofitInstance.getRetrofitInstance().create(GetHeroDataService.class);
-            Call<Hero> call = heroDataService.getHero(String.valueOf(i));
+            for (int i = 0; i < response.length(); i++) {
 
-            call.enqueue(new Callback<Hero>() {
-                @Override
-                public void onResponse(Call<Hero> call, Response<Hero> response) {
-                    Hero hero = response.body();
+                try {
+                    jsonObject = response.getJSONObject(i);
+                    Hero hero = new Hero();
+
+                    hero.setName(jsonObject.getString("name"));
+                    hero.setPowerstats(jsonObject.getJSONObject("powerstats").getString("intelligence"));
+                    hero.setAppearance(jsonObject.getJSONObject("appearance").getString("gender"));
+                    hero.setBiography(jsonObject.getJSONObject("biography").getString("fullName"));
+                    hero.setWork(jsonObject.getJSONObject("work").getString("occupation"));
+                    hero.setImage(jsonObject.getJSONObject("images").getString("sm"));
+
                     heroList.add(hero);
                 }
-
-                @Override
-                public void onFailure(Call<Hero> call, Throwable t) {
-                    Toast.makeText(MainActivity.this, R.string.error_api, Toast.LENGTH_SHORT).show();
+                catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            });
-        }*/
+            }
+        }, error -> {
+            Toast.makeText(MainActivity.this, R.string.error_api, Toast.LENGTH_SHORT).show();
+        });
 
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+        requestQueue.add(request);
 
+        /* GetHeroesDataService heroDataService = RetrofitInstance.getRetrofitInstance().create(GetHeroesDataService.class);
+        Call<List<Hero>> call = heroDataService.getHeroes();
+
+        call.enqueue(new Callback<List<Hero>>() {
+            @Override
+            public void onResponse(Call<List<Hero>> call, Response<List<Hero>> response) {
+                List<Hero> heroes = response.body();
+                if (heroes != null) {
+                    heroList.addAll(heroes);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Hero>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, R.string.error_api, Toast.LENGTH_SHORT).show();
+            }
+        });*/
     }
 }
