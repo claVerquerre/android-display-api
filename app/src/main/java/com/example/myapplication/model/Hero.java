@@ -1,5 +1,6 @@
 package com.example.myapplication.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -7,29 +8,36 @@ import java.io.Serializable;
 public class Hero implements Serializable {
 
     @SerializedName("id")
+    @Expose
     private String id;
 
     @SerializedName("name")
+    @Expose
     private String name;
 
     @SerializedName("powerstats")
+    @Expose
     private String powerstats;
 
     @SerializedName("biography")
+    @Expose
     private String biography;
 
     @SerializedName("appearance")
+    @Expose
     private String appearance;
 
     @SerializedName("work")
+    @Expose
     private String work;
 
     @SerializedName("image")
-    private String image;
+    @Expose
+    private Img image;
 
     public Hero() { }
 
-    public Hero(String id, String name, String powerstats, String biography, String appearance, String work, String image) {
+    public Hero(String id, String name, String powerstats, String biography, String appearance, String work, Img image) {
         this.id = id;
         this.name = name;
         this.powerstats = powerstats;
@@ -59,7 +67,7 @@ public class Hero implements Serializable {
         return work;
     }
 
-    public String getImage() {
+    public Img getImage() {
         return image;
     }
 
@@ -91,7 +99,7 @@ public class Hero implements Serializable {
         this.work = work;
     }
 
-    public void setImage(String image) {
+    public void setImage(Img image) {
         this.image = image;
     }
 }

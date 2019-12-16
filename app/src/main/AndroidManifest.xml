@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.HeroActivity"></activity>
+        <!--<activity android:name=".activities.HeroActivity"></activity>-->
 
     </application>
 

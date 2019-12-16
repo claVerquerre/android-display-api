@@ -1,61 +1,47 @@
 package com.example.myapplication.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.myapplication.R;
 import com.example.myapplication.model.Hero;
-import com.example.myapplication.utils.ImageUtils;
+import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
+    private ArrayList<Hero> mData;
     private Context mContext;
-    private List<Hero> mData;
 
-    public RecyclerViewAdapter(Context mContext, List<Hero> mData) {
+    public RecyclerViewAdapter(Context mContext, ArrayList<Hero> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        view = inflater.inflate(R.layout.hero_row_item, parent, false);
+    public RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.hero_row_item, parent, false);
 
-        return new MyViewHolder(view);
-        /* viewHolder.view_container.setOnClickListener(view1 -> {
-
-            Intent i = new Intent(mContext, HeroActivity.class);
-            i.putExtra("hero_name", mData.get(viewHolder.getAdapterPosition()).getName());
-            i.putExtra("hero_powerstats", mData.get(viewHolder.getAdapterPosition()).getPowerstats());
-            i.putExtra("hero_biography", mData.get(viewHolder.getAdapterPosition()).getBiography());
-            i.putExtra("hero_appearance", mData.get(viewHolder.getAdapterPosition()).getAppearance());
-            i.putExtra("hero_work", mData.get(viewHolder.getAdapterPosition()).getWork());
-            i.putExtra("hero_image", mData.get(viewHolder.getAdapterPosition()).getImage());
-
-            mContext.startActivity(i);
-        });
-
-        return viewHolder; */
+        return new RecyclerViewAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bind(mData.get(position));
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
+        holder.textView_name.setText(mData.get(position).getName());
+        holder.textView_occupation.setText(mData.get(position).getWork());
+
+        // for the image
+        String url = mData.get(position).getImage().getSm();
+        Picasso.get().load(url).into(holder.imageView_thumbnail);
     }
 
     @Override
@@ -63,26 +49,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mData.size();
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.hero_name)
-        TextView textView_name;
+        private TextView textView_name;
+        private TextView textView_occupation;
+        private ImageView imageView_thumbnail;
 
-        @BindView(R.id.hero_occupation)
-        TextView textView_occupation;
-
-        @BindView(R.id.thumbnail)
-        ImageView imageView_thumbnail;
-
-        MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
 
-        void bind(Hero hero) {
-            textView_name.setText(hero.getName());
-            textView_occupation.setText(hero.getWork());
-            ImageUtils.loadImage(imageView_thumbnail, hero.getImage());
+            textView_name = itemView.findViewById(R.id.hero_name);
+            textView_occupation = itemView.findViewById(R.id.hero_occupation);
+            imageView_thumbnail = itemView.findViewById(R.id.thumbnail);
         }
     }
 }
