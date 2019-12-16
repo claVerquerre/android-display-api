@@ -1,7 +1,6 @@
-package com.example.myapplication.di;
+package com.example.myapplication.network;
 
 import com.example.myapplication.model.HeroApi;
-import com.example.myapplication.model.HeroService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,10 +21,5 @@ class RetrofitInstance {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(HeroApi.class);
-    }
-
-    @Provides
-    HeroService provideHeroService() {
-        return HeroService.getInstance();
     }
 }

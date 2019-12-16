@@ -1,7 +1,6 @@
 package com.example.myapplication.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.R;
-import com.example.myapplication.activities.HeroActivity;
 import com.example.myapplication.model.Hero;
 import com.example.myapplication.utils.ImageUtils;
 
@@ -59,7 +55,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bind(mData);
+        holder.bind(mData.get(position));
     }
 
     @Override
