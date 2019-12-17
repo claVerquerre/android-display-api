@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  *
  */
-public class MainActivity extends AppCompatActivity {
+public class MainFragment extends AppCompatActivity {
 
     ArrayList<HeroesModel> heroesModels = new ArrayList<>();
     private HeroesAdapter heroesAdapter;
@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<HeroesModel>> call, Response<List<HeroesModel>> response) {
                 heroesModels = new ArrayList<>(response.body());
-                heroesAdapter = new HeroesAdapter(MainActivity.this, heroesModels);
+                heroesAdapter = new HeroesAdapter(heroesModels);
                 heroes_recyclerview.setAdapter(heroesAdapter);
             }
 
             @Override
             public void onFailure(Call<List<HeroesModel>> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainFragment.this,"Failed",Toast.LENGTH_SHORT).show();
             }
         });
     }
