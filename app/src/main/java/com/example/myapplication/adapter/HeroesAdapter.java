@@ -1,6 +1,5 @@
 package com.example.myapplication.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,17 +16,15 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- *
+ * Adapter for heroes.
  */
 public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.ViewHolder> {
 
     private ArrayList<HeroesModel> heroesModels;
-    private Context context;
 
 
-    public HeroesAdapter(Context context, ArrayList<HeroesModel> heroesModels) {
+    public HeroesAdapter(ArrayList<HeroesModel> heroesModels) {
         this.heroesModels = heroesModels;
-        this.context = context;
     }
 
     @NonNull
@@ -42,6 +39,8 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull HeroesAdapter.ViewHolder viewHolder, int i) {
         viewHolder.hero_name.setText(heroesModels.get(i).getName());
+        viewHolder.hero_desc.setText(heroesModels.get(i).getBiography().getFullName());
+        viewHolder.hero_publisher.setText(heroesModels.get(i).getBiography().getPublisher());
 
         Picasso.get().load(heroesModels.get(i).getImage().getSm()).into(viewHolder.hero_image);
     }
@@ -51,16 +50,17 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.ViewHolder
         return heroesModels.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView hero_image;
-        private TextView hero_name, hero_desc;
+        private TextView hero_name, hero_desc, hero_publisher;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             hero_image = itemView.findViewById(R.id.hero_image);
             hero_name = itemView.findViewById(R.id.hero_name);
             hero_desc = itemView.findViewById(R.id.hero_desc);
+            hero_publisher = itemView.findViewById(R.id.hero_publisher);
         }
     }
 }

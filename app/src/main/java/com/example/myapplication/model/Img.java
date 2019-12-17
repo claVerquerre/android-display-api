@@ -39,4 +39,20 @@ public class Img {
     public String getLg() {
         return lg;
     }
+
+    public void setSm(String sm) {
+        this.sm = sm;
+    }
+
+    public void setMd(String md) {
+        this.md = md;
+    }
+
+    public void setXs(String xs) {
+        this.xs = xs;
+    }
+
+    public void setLg(String lg) {
+        this.lg = lg;
+    }
 }

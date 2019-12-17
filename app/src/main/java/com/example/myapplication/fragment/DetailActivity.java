@@ -1,4 +1,4 @@
-package com.example.myapplication.activities;
+package com.example.myapplication.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 
 /**
- *
+ * Activity to display the detail of an hero.
  */
 public class DetailActivity extends AppCompatActivity {
 

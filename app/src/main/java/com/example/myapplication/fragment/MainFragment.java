@@ -1,16 +1,22 @@
-package com.example.myapplication.activities;
+package com.example.myapplication.fragment;
 
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.myapplication.DBHelper;
+import com.example.myapplication.MyApplication;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.HeroesAdapter;
 import com.example.myapplication.model.HeroesModel;
-import com.example.myapplication.network.RequestInteface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,55 +24,61 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- *
+ * The main fragment of the application.
  */
-public class MainFragment extends AppCompatActivity {
+public class MainFragment extends Fragment {
 
     ArrayList<HeroesModel> heroesModels = new ArrayList<>();
     private HeroesAdapter heroesAdapter;
     private RecyclerView heroes_recyclerview;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater
+                .inflate(R.layout.main_fragment, container, false);
 
-        heroes_recyclerview = findViewById(R.id.heroes_recyclerview);
-        heroes_recyclerview.setLayoutManager(new LinearLayoutManager(this));
-
+        heroes_recyclerview = view.findViewById(R.id.heroes_recyclerview);
         getHeroesResponse();
+
+        return view;
     }
 
     /**
-     *
+     * Get response of the superhero api.
      */
     private void getHeroesResponse() {
-        Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("https://akabab.github.io/superhero-api/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RequestInteface requestInteface = retrofit
-                .create(RequestInteface.class);
-        Call<List<HeroesModel>> call = requestInteface.getHeroesJson();
-
-        call.enqueue(new Callback<List<HeroesModel>>() {
+        MyApplication.getmApi().getHeroesJson().enqueue(new Callback<List<HeroesModel>>() {
             @Override
             public void onResponse(Call<List<HeroesModel>> call, Response<List<HeroesModel>> response) {
                 heroesModels = new ArrayList<>(response.body());
                 heroesAdapter = new HeroesAdapter(heroesModels);
-                heroes_recyclerview.setAdapter(heroesAdapter);
+
+                // save in a local database (used for displaying in grid)
+                DBHelper.getInstance(requireContext()).addHeroes(heroesModels);
+
+                initializeAdapter(heroesModels);
             }
 
             @Override
             public void onFailure(Call<List<HeroesModel>> call, Throwable t) {
-                Toast.makeText(MainFragment.this,"Failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(),"Failed",Toast.LENGTH_SHORT).show();
+
             }
         });
+    }
+
+    /**
+     * initialize the adapter in lines.
+     * @param heroesModels list of heroes
+     */
+    private void initializeAdapter(ArrayList<HeroesModel> heroesModels) {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireActivity());
+        heroes_recyclerview.setLayoutManager(layoutManager);
+
+        HeroesAdapter heroesAdapter = new HeroesAdapter(heroesModels);
+        heroes_recyclerview.setAdapter(heroesAdapter);
     }
 
 }

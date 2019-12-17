@@ -8,7 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
- * Created by Navneet Krishna on 11/05/19.
+ * The interface for the request calls.
  */
 public interface RequestInteface {
 
