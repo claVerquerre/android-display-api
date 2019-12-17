@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/nav_view_bottom"
             android:layout_below="@+id/app_bar"
-            android:text="@string/title_home" />
+            android:text="@string/title_main" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/nav_view_bottom"
@@ -38,14 +38,5 @@
             app:menu="@menu/bottom_nav_menu" />
 
     </RelativeLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

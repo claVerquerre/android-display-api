@@ -9,8 +9,13 @@
     <string name="hero_work">Hero Work</string>
     <string name="error_api">Oops, error when trying to call Superhero API…</string>
     <string name="hero_image">Hero image</string>
-    <string name="title_home">Super Heroes</string>
+    <string name="title_main">Super Heroes</string>
     <string name="nav_header_subtitle">nav_header_subtitle</string>
     <string name="nav_header_title">nav_header_title</string>
     <string name="nav_header_img">nav_header_img</string>
+    <string name="nav_drawer_open">Open navigation drawer</string>
+    <string name="nav_drawer_close">Close navigation drawer</string>
+    <string name="listes">Listes</string>
+    <string name="grilles">Grilles</string>
+    <string name="action_settings">action_settings</string>
 </resources>
