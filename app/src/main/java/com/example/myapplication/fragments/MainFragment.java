@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.myapplication.DBHelper;
 import com.example.myapplication.MyApplication;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.HeroesAdapter;
@@ -32,18 +33,27 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
 
         recyclerView = view.findViewById(R.id.rv_heroes);
-        initApi();
+        initializeApi();
 
         return view;
     }
 
-    private void initApi() {
+    /**
+     * Initialize API to get a response or a failure.
+     */
+    private void initializeApi() {
 
         MyApplication.getApi().getHeroes().enqueue(new Callback<List<HeroesModel>>() {
             @Override
             public void onResponse(Call<List<HeroesModel>> call, Response<List<HeroesModel>> response) {
                 List<HeroesModel> heroesModelList = new ArrayList<>(response.body());
-                initAdapter(heroesModelList);
+
+                // add some information about heroes on a database
+                // id, name and picture url
+                DBHelper.getInstance(requireContext())
+                        .addHeroes(heroesModelList);
+
+                initializeAdapter(heroesModelList);
             }
 
             @Override
@@ -53,9 +63,14 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private void initAdapter(List<HeroesModel> heroesModelList) {
+    /**
+     * Initialize the adapter with a linear layout.
+     * @param heroesModelList the list of heroes
+     */
+    private void initializeAdapter(List<HeroesModel> heroesModelList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireActivity());
         recyclerView.setLayoutManager(layoutManager);
+
         HeroesAdapter heroesAdapter = new HeroesAdapter(requireContext(), heroesModelList, 0);
         recyclerView.setAdapter(heroesAdapter);
     }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.myapplication.DBHelper;
 import com.example.myapplication.MyApplication;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.HeroesAdapter;
@@ -33,11 +34,11 @@ public class GridFragment extends Fragment {
         View view = inflater.inflate(R.layout.grid_fragment, container, false);
 
         recyclerView = view.findViewById(R.id.rv_heroes);
-        List<HeroesModel> heroesModelList = new ArrayList<>();
-        initializeApi();
 
-        // add some information about the heroes in database
-        //heroesModelList.addAll(DBHelper.getInstance(requireContext()).getAllHeroes());
+        // initializeApi();
+        List<HeroesModel> heroesModelList = new ArrayList<>();
+        heroesModelList.addAll(DBHelper.getInstance(requireContext()).getAllHeroes());
+        initializeAdapter(heroesModelList);
 
         return view;
     }

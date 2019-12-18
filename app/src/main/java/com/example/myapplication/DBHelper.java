@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.myapplication.model.HeroesModel;
+import com.example.myapplication.model.Img;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + TABLE_HEROES
                 + "("
                 + KEY_ID
-                + " TEXT PRIMARY KEY,"
+                + " INTEGER PRIMARY KEY,"
                 + KEY_NAME
                 + " TEXT,"
                 + KEY_URL
@@ -116,9 +117,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
             while (cursor.moveToNext()) {
                 HeroesModel hero = new HeroesModel();
-                hero.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ID))));
+                hero.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
                 hero.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
-                hero.getImage().setSm(cursor.getString(cursor.getColumnIndex(KEY_URL)));
+
+                // create img of the hero from url
+                Img img = new Img();
+                img.setSm(cursor.getString(cursor.getColumnIndex(KEY_URL)));
+                hero.setImage(img);
 
                 // Add hero to list
                 heroesModelList.add(hero);
