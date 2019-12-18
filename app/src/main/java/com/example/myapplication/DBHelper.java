@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import com.example.myapplication.model.HeroesModel;
 
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Helper of the DataBase (sql lite)
+ * Helper of the DataBase (sqlite).
  */
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -26,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_NAME = "KEY_NAME";
     private static final String KEY_URL = "KEY_URL";
 
-    private DBHelper(Context context) {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
@@ -39,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACT_TABLE = "CREATE TABLE "
+        String CREATE_HERO_TABLE = "CREATE TABLE "
                 + TABLE_HEROES
                 + "("
                 + KEY_ID
@@ -49,7 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + KEY_URL
                 + " TEXT"
                 + ")";
-        db.execSQL(CREATE_CONTACT_TABLE);
+        db.execSQL(CREATE_HERO_TABLE);
     }
 
     @Override
@@ -75,15 +74,19 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param heroesModels list of heroes
      */
     public void addHeroes(List<HeroesModel> heroesModels) {
+
         final SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransactionNonExclusive();
 
         try {
-            for (HeroesModel hero : heroesModels) {
+            for (HeroesModel heroesModel : heroesModels) {
+
                 ContentValues values = new ContentValues();
-                values.put(KEY_NAME, hero.getName());
-                values.put(KEY_URL, hero.getImage().getXs());
+                values.put(KEY_NAME, heroesModel.getName());
+                values.put(KEY_URL, heroesModel.getImage().getSm());
+
                 db.insertWithOnConflict(TABLE_HEROES, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+
                 values.clear();
             }
             db.setTransactionSuccessful();
@@ -101,8 +104,8 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return list of heroes get from the database
      */
     public List<HeroesModel> getAllHeroes() {
-        List<HeroesModel> heroesModelList = new ArrayList<>();
 
+        List<HeroesModel> heroesModelList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + TABLE_HEROES;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -113,15 +116,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
             while (cursor.moveToNext()) {
                 HeroesModel hero = new HeroesModel();
-
-                hero.setId(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                hero.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ID))));
                 hero.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
-                hero.getImage().setXs(cursor.getString(cursor.getColumnIndex(KEY_URL)));
+                hero.getImage().setSm(cursor.getString(cursor.getColumnIndex(KEY_URL)));
 
-                // Add hero on list
+                // Add hero to list
                 heroesModelList.add(hero);
             }
         }
         return heroesModelList;
     }
 }
+
+

@@ -3,14 +3,10 @@ package com.example.myapplication.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Model that represents an hero.
- */
 public class HeroesModel {
-
     @SerializedName("id")
     @Expose
-    private String id;
+    private Integer id;
 
     @SerializedName("name")
     @Expose
@@ -68,11 +64,11 @@ public class HeroesModel {
         this.powerstats = powerstats;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -91,4 +87,5 @@ public class HeroesModel {
     public void setImage(Img image) {
         this.image = image;
     }
+
 }

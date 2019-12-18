@@ -12,18 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/app_bar"
-            layout="@layout/app_bar_main"
-            android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize" />
-
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/nav_view_bottom"
-            android:layout_below="@+id/app_bar"
             android:text="@string/title_main" />
 
         <android.support.design.widget.BottomNavigationView

@@ -1,21 +1,14 @@
 <resources>
     <string name="app_name">SuperHeroes</string>
-    <string name="picture_of_the_hero">Picture of the hero</string>
-    <string name="hero_name">Hero Name</string>
-    <string name="hero_occupation">Hero Occupation</string>
-    <string name="hero_powerstats">Hero Powerstats</string>
-    <string name="hero_biography">Hero Biography</string>
-    <string name="hero_appearance">Hero Appearance</string>
-    <string name="hero_work">Hero Work</string>
-    <string name="error_api">Oops, error when trying to call Superhero API…</string>
-    <string name="hero_image">Hero image</string>
-    <string name="title_main">Super Heroes</string>
-    <string name="nav_header_subtitle">nav_header_subtitle</string>
-    <string name="nav_header_title">nav_header_title</string>
-    <string name="nav_header_img">nav_header_img</string>
-    <string name="nav_drawer_open">Open navigation drawer</string>
-    <string name="nav_drawer_close">Close navigation drawer</string>
-    <string name="listes">Listes</string>
-    <string name="grilles">Grilles</string>
-    <string name="action_settings">action_settings</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_main">List</string>
+    <string name="menu_grid">Grid</string>
+    <string name="title_main">Main</string>
+    <string name="hero_image">Hero Image</string>
 </resources>
