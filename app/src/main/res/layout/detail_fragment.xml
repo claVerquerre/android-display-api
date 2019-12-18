@@ -12,7 +12,8 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="exitUntilCollapsed|scroll">
+            app:layout_scrollFlags="exitUntilCollapsed|scroll"
+            android:id="@+id/collapsing_toolbar">
 
             <LinearLayout
                 android:layout_width="match_parent"

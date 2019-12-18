@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_NAME = "KEY_NAME";
     private static final String KEY_URL = "KEY_URL";
 
-    public DBHelper(Context context) {
+    private DBHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 

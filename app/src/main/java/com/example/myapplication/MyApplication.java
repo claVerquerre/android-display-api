@@ -36,10 +36,6 @@ public class MyApplication extends MultiDexApplication {
         mApi = retrofit.create(ApiRequest.class);
     }
 
-    public static MyApplication getInstance() {
-        return instance;
-    }
-
     public static ApiRequest getApi(){
         return mApi;
     }

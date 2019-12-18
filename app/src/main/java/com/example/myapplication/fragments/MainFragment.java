@@ -16,7 +16,7 @@ import com.example.myapplication.MyApplication;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.HeroesAdapter;
 import com.example.myapplication.model.HeroesModel;
-import com.example.myapplication.utils.OnItemPhotoClickListener;
+import com.example.myapplication.utils.OnHeroClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +77,12 @@ public class MainFragment extends Fragment {
         recyclerView.setAdapter(heroesAdapter);
     }
 
+    /**
+     * set detail fragment with the clicked hero.
+     * @param heroesAdapter heroes adapter
+     */
     private void setItemOnClickListener(HeroesAdapter heroesAdapter) {
-        heroesAdapter.setOnItemClickedListener(new OnItemPhotoClickListener() {
+        heroesAdapter.setOnItemClickedListener(new OnHeroClickListener() {
             @Override
             public void onItemClick(HeroesModel hero) {
                 DetailFragment fragment = new DetailFragment();

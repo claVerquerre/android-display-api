@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.HeroesModel;
-import com.example.myapplication.utils.OnItemPhotoClickListener;
+import com.example.myapplication.utils.OnHeroClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.MyViewHold
     private final List<HeroesModel> heroesModelList;
     private final Context mContext;
     private final int viewType;
-    private static OnItemPhotoClickListener onItemClickedListener;
+    private static OnHeroClickListener onItemClickedListener;
 
 
     public HeroesAdapter(Context context, List<HeroesModel> heroesModelList, int viewType) {
@@ -86,11 +86,9 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.MyViewHold
         return heroesModelList.size();
     }
 
-
-    public static void setOnItemClickedListener(OnItemPhotoClickListener onItemClickedListener) {
+    public static void setOnItemClickedListener(OnHeroClickListener onItemClickedListener) {
         HeroesAdapter.onItemClickedListener = onItemClickedListener;
     }
-
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView iv_myImage;

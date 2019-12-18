@@ -22,14 +22,6 @@ public class HeroesModel implements Serializable {
     @Expose
     private Powerstats powerstats;
 
-    @SerializedName("work")
-    @Expose
-    private Work work;
-
-    @SerializedName("appearance")
-    @Expose
-    private Appearance appearance;
-
     @SerializedName("biography")
     @Expose
     private Biography biography;
@@ -38,32 +30,8 @@ public class HeroesModel implements Serializable {
         return biography;
     }
 
-    public void setBiography(Biography biography) {
-        this.biography = biography;
-    }
-
-    public Appearance getAppearance() {
-        return appearance;
-    }
-
-    public void setAppearance(Appearance appearance) {
-        this.appearance = appearance;
-    }
-
-    public Work getWork() {
-        return work;
-    }
-
-    public void setWork(Work work) {
-        this.work = work;
-    }
-
     public Powerstats getPowerstats() {
         return powerstats;
-    }
-
-    public void setPowerstats(Powerstats powerstats) {
-        this.powerstats = powerstats;
     }
 
     public Integer getId() {

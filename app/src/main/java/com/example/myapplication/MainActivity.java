@@ -9,7 +9,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import com.example.myapplication.fragments.GridFragment;
 import com.example.myapplication.fragments.MainFragment;
@@ -73,6 +72,7 @@ public class MainActivity extends AppCompatActivity
         new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
                 switch (menuItem.getItemId()) {
                     case R.id.nav_main:
                         setFragment(new MainFragment());
