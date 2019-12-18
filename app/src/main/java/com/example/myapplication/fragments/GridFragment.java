@@ -10,10 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.myapplication.DBHelper;
-import com.example.myapplication.MyApplication;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.HeroesAdapter;
 import com.example.myapplication.model.HeroesModel;
@@ -21,45 +19,22 @@ import com.example.myapplication.model.HeroesModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class GridFragment extends Fragment {
     RecyclerView recyclerView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.grid_fragment, container, false);
 
+        View view = inflater.inflate(R.layout.grid_fragment, container, false);
         recyclerView = view.findViewById(R.id.rv_heroes);
 
-        // initializeApi();
-        List<HeroesModel> heroesModelList = new ArrayList<>();
-        heroesModelList.addAll(DBHelper.getInstance(requireContext()).getAllHeroes());
+        // get info from the database
+        List<HeroesModel> heroesModelList
+                = new ArrayList<>(DBHelper.getInstance(requireContext()).getAllHeroes());
+
         initializeAdapter(heroesModelList);
-
         return view;
-    }
-
-    /**
-     * Initialize the api, to get the response or a failure.
-     */
-    private void initializeApi() {
-        MyApplication.getApi().getHeroes().enqueue(new Callback<List<HeroesModel>>() {
-            @Override
-            public void onResponse(Call<List<HeroesModel>> call, Response<List<HeroesModel>> response) {
-                List<HeroesModel> heroesModelList = new ArrayList<>(response.body());
-                initializeAdapter(heroesModelList);
-            }
-
-            @Override
-            public void onFailure(Call<List<HeroesModel>> call, Throwable t) {
-
-                Toast.makeText(requireActivity(), "failure", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     /**
