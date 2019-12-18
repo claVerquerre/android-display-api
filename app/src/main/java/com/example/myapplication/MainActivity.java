@@ -9,14 +9,13 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 
 import com.example.myapplication.fragments.GridFragment;
 import com.example.myapplication.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private BottomNavigationView nav_view_bottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity
 
         setFragment(new MainFragment());
 
-        nav_view_bottom = findViewById(R.id.nav_view_bottom);
+        BottomNavigationView nav_view_bottom = findViewById(R.id.nav_view_bottom);
         nav_view_bottom.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
     }
 

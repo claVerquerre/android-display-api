@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:cardBackgroundColor="#FFFFFF"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:id="@+id/line">
 
         <RelativeLayout
             android:layout_width="120dp"

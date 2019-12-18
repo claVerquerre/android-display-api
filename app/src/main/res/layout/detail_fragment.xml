@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="exitUntilCollapsed|scroll">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="25dp">
+
+                    <ImageView
+                        android:id="@+id/detail_hero_picture"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/picture_of_the_hero"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:orientation="vertical"
+                        android:layout_margin="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/detail_hero_name"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/textview"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/detail_full_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:textSize="17sp"
+                            android:text="@string/textview"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/detail_publisher"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textSize="17sp"
+                            android:text="@string/textview"
+                            android:textColor="@color/white"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginStart="50dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/power_statistics"
+                        android:textSize="18sp"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detail_intelligence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="17sp"
+                        android:text="@string/textview"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/detail_strength"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="17sp"
+                        android:text="@string/textview"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/detail_speed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="17sp"
+                        android:text="@string/textview"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/detail_durability"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="17sp"
+                        android:text="@string/textview"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/detail_power"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="17sp"
+                        android:text="@string/textview"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/detail_combat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="17sp"
+                        android:text="@string/textview"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_slide_up"
+                    android:baselineAlignBottom="true"
+                    android:contentDescription="@string/slide_up_icon"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+</android.support.design.widget.CoordinatorLayout>

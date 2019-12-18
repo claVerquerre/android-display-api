@@ -11,4 +11,8 @@
     <string name="menu_grid">Grid</string>
     <string name="title_main">Main</string>
     <string name="hero_image">Hero Image</string>
+    <string name="textview">TextView</string>
+    <string name="picture_of_the_hero">picture of the hero</string>
+    <string name="power_statistics">Power Statistics</string>
+    <string name="slide_up_icon">slide up icon</string>
 </resources>

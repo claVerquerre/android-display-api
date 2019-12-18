@@ -2,6 +2,7 @@ package com.example.myapplication.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.HeroesModel;
+import com.example.myapplication.utils.OnItemPhotoClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,6 +21,8 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.MyViewHold
     private final List<HeroesModel> heroesModelList;
     private final Context mContext;
     private final int viewType;
+    private static OnItemPhotoClickListener onItemClickedListener;
+
 
     public HeroesAdapter(Context context, List<HeroesModel> heroesModelList, int viewType) {
         this.mContext = context;
@@ -49,7 +53,7 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-        HeroesModel data = heroesModelList.get(position);
+        final HeroesModel data = heroesModelList.get(position);
 
         if (data.getImage().getSm() != null && !data.getImage().getSm().trim().isEmpty()){
             Picasso.get().load(data.getImage().getSm())
@@ -66,6 +70,15 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.MyViewHold
             myViewHolder.hero_desc.setText(data.getBiography().getFullName());
             myViewHolder.hero_publisher.setText(data.getBiography().getPublisher());
         }
+
+        myViewHolder.line.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickedListener != null) {
+                    onItemClickedListener.onItemClick(data);
+                }
+            }
+        });
     }
 
     @Override
@@ -73,9 +86,16 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.MyViewHold
         return heroesModelList.size();
     }
 
+
+    public static void setOnItemClickedListener(OnItemPhotoClickListener onItemClickedListener) {
+        HeroesAdapter.onItemClickedListener = onItemClickedListener;
+    }
+
+
     class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView iv_myImage;
         private TextView tv_myText, hero_desc, hero_publisher;
+        private CardView line;
 
         MyViewHolder(View view) {
             super(view);
@@ -84,7 +104,7 @@ public class HeroesAdapter extends RecyclerView.Adapter<HeroesAdapter.MyViewHold
             tv_myText = view.findViewById(R.id.tv_myText);
             hero_desc = view.findViewById(R.id.hero_desc);
             hero_publisher = view.findViewById(R.id.hero_publisher);
-
+            line = view.findViewById(R.id.line);
         }
     }
 }

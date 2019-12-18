@@ -16,6 +16,7 @@ import com.example.myapplication.MyApplication;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.HeroesAdapter;
 import com.example.myapplication.model.HeroesModel;
+import com.example.myapplication.utils.OnItemPhotoClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +73,24 @@ public class MainFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         HeroesAdapter heroesAdapter = new HeroesAdapter(requireContext(), heroesModelList, 0);
+        setItemOnClickListener(heroesAdapter);
         recyclerView.setAdapter(heroesAdapter);
+    }
+
+    private void setItemOnClickListener(HeroesAdapter heroesAdapter) {
+        heroesAdapter.setOnItemClickedListener(new OnItemPhotoClickListener() {
+            @Override
+            public void onItemClick(HeroesModel hero) {
+                DetailFragment fragment = new DetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("hero", hero);
+                fragment.setArguments(bundle);
+
+                android.app.FragmentTransaction transaction = getActivity().getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
     }
 }
